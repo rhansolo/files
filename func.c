@@ -6,15 +6,22 @@
 
 int main()
 {
-  char buffer1[20] = "thisisatest\n";
-  char buffer2[20];
+  // read only
+  char file1 = open("foo.txt", O_RDONLY);
+  //read & write
+  char file2 = open("outfoo.txt", O_RDWR); 
 
-  char file1 = open("foo.txt", O_RDWR);
-  char file2 = open("foo.txt", O_RDWR); 
-
-  write(file1, buffer1, strlen(buffer1));
-  write(1, buffer2, read(file2, buffer2, 20));
-
+  //reads from file
+  printf("Reading! \n");
+  char info[9];
+  if(read(file1, info, 9) < 0){
+   	printf("reading error");
+  }
+  printf("Writing! \n");
+ 	if (write(file2, info , 9) != 9){
+    printf("writing error");
+ 	}
+  printf("Terminated");
   close(file1);
   close(file2);
 
